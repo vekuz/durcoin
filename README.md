@@ -39,7 +39,7 @@
 ### 1. Download
 
 ```bash
-curl -O https://raw.githubusercontent.com/YOUR_USER/solohost/main/index.php
+curl -O [http://github.com/vekuz/durcoin/tree/main]
 ```
 
 ### 2. Configure
