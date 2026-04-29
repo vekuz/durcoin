@@ -1,0 +1,28 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # index.php выполняется как есть
+    RewriteRule ^index\.php$ - [L]
+
+    # Веб-ресурсы (PHP, стили, скрипты, шрифты, иконки) — выполняются напрямую
+    RewriteRule \.(php|phtml|html?|css|js|mjs|xml|json|ico|woff2?|ttf|eot|map)$ - [L,NC]
+
+    # Корень сайта
+    RewriteRule ^$ - [L]
+
+    # robots.txt, sitemap.xml — стандартные SEO-файлы
+    RewriteRule ^(robots\.txt|sitemap\.xml|manifest\.json)$ - [L]
+
+    # ВСЁ остальное что существует как файл — через index.php (там проверка подписки)
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule ^(.+)$ index.php?open=$1 [L,QSA]
+</IfModule>
+
+# Блокируем dotfiles (.htaccess, .env, .git и т.д.)
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+# Отключаем листинг директории
+Options -Indexes
